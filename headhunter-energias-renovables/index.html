@@ -107,14 +107,24 @@
 <nav id="nav">
   <div class="wrap">
     <a class="logo" href="/"><b>Laura Galera San Miguel</b><small><span class="hide-sm">Associate Director · </span>Robert Walters</small></a>
-    <ul>
-      <li><a href="/#empresas">Para empresas</a></li>
+    <ul class="menu" id="menu">
+      <li class="has-sub">
+        <a href="/#empresas" aria-haspopup="true">Para empresas</a>
+        <ul class="submenu">
+          <li><a href="/#empresas">Cómo trabajamos con empresas</a></li>
+          <li><a href="/headhunter-energias-renovables/" aria-current="page">Headhunter energías renovables</a></li>
+          <li><a href="/headhunter-sector-energetico/">Headhunter sector energético</a></li>
+          <li><a href="/headhunter-industria/">Headhunter industria</a></li>
+          <li><a href="/headhunter-ingenieria/">Headhunter ingeniería</a></li>
+        </ul>
+      </li>
       <li><a href="/#trayectoria">Trayectoria</a></li>
       <li><a href="/#prensa">Prensa</a></li>
       <li><a href="/#eventos">Eventos</a></li>
       <li><a href="/#robert-walters">Robert Walters</a></li>
       <li><a class="btn btn-dark" href="#contacto">Contactar</a></li>
     </ul>
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -122,7 +132,7 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a><span>/</span>Headhunter de energías renovables</nav>
+      <div class="crumbs" role="navigation" aria-label="Ruta"><a href="/">Inicio</a><span>/</span>Headhunter de energías renovables</div>
       <span class="label">Headhunter · Energías renovables</span>
       <h1>Headhunter de <em>energías renovables</em></h1>
       <p class="lead">Selección de directivos para <strong>promotoras y desarrolladoras de fotovoltaica, eólica, termosolar, hidráulica, biomasa e hidrógeno verde</strong>. Desde 2012 especializada en el sector renovable, en España y a nivel internacional.</p>
@@ -309,6 +319,16 @@
   document.getElementById("y").textContent = new Date().getFullYear();
   const nav = document.getElementById("nav");
   addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
+  const toggle = nav.querySelector(".menu-toggle");
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open);
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  });
+  nav.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => {
+    nav.classList.remove("open");
+    toggle.setAttribute("aria-expanded", false);
+  }));
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .12 });

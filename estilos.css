@@ -37,10 +37,40 @@
   .logo b { display: block; font-family: var(--serif); font-weight: 600; font-size: 23px; color: var(--ink); }
   .logo small { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
   nav ul { list-style: none; display: flex; gap: 32px; align-items: center; }
-  nav ul a { text-decoration: none; font-size: 14px; color: var(--muted); transition: color .2s; }
+  nav ul a { white-space: nowrap; text-decoration: none; font-size: 14px; color: var(--muted); transition: color .2s; }
   nav ul a:hover { color: var(--ink); }
   nav ul .btn { padding: 11px 20px; color: var(--white); }
-  @media (max-width: 860px) { nav ul li:not(:last-child) { display: none; } }
+
+  /* Desplegable "Para empresas" */
+  nav .has-sub { position: relative; }
+  nav .has-sub > a::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-3px) rotate(45deg); }
+  nav .submenu { position: absolute; top: 100%; left: -20px; display: block; min-width: 290px; margin-top: 14px; padding: 10px 0; background: var(--white); border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(11, 26, 43, .12); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .2s, transform .2s, visibility .2s; }
+  nav .submenu::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+  nav .has-sub:hover .submenu, nav .has-sub:focus-within .submenu { opacity: 1; visibility: visible; transform: none; }
+  nav .submenu li { display: block; }
+  nav .submenu a { display: block; padding: 10px 22px; font-size: 14px; color: var(--text); }
+  nav .submenu a:hover, nav .submenu a[aria-current="page"] { background: var(--paper); color: var(--brass); }
+  nav .submenu li:first-child a { border-bottom: 1px solid var(--line); margin-bottom: 6px; padding-bottom: 14px; color: var(--muted); }
+
+  /* Botón de menú en móvil */
+  .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); background: var(--white); cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+  .menu-toggle span { display: block; width: 20px; height: 1.5px; background: var(--ink); transition: transform .25s, opacity .25s; }
+  nav.open .menu-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
+  nav.open .menu-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  @media (max-width: 1000px) {
+    .menu-toggle { display: inline-flex; }
+    nav ul.menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 24px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 18px 40px rgba(11, 26, 43, .12); max-height: calc(100vh - 76px); overflow-y: auto; }
+    nav.open ul.menu { display: flex; }
+    nav.open { background: var(--paper); }
+    nav ul.menu > li > a:not(.btn) { display: block; padding: 14px 0; font-size: 16px; color: var(--ink); border-bottom: 1px solid var(--line); }
+    nav .has-sub > a::after { display: none; }
+    nav .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; margin: 0; padding: 4px 0 8px 14px; border: 0; box-shadow: none; background: transparent; }
+    nav .submenu::before { display: none; }
+    nav .submenu a { padding: 10px 0; font-size: 15px; }
+    nav .submenu li:first-child a { border: 0; margin: 0; padding-bottom: 10px; }
+    nav ul.menu .btn { margin-top: 18px; justify-content: center; width: 100%; }
+  }
   @media (max-width: 520px) { .logo .hide-sm { display: none; } .logo b { font-size: 21px; } }
 
   /* Portada: dos columnas con retrato */

@@ -73,14 +73,24 @@
 <nav id="nav">
   <div class="wrap">
     <a class="logo" href="#"><b>Laura Galera San Miguel</b><small><span class="hide-sm">Associate Director · </span>Robert Walters</small></a>
-    <ul>
-      <li><a href="#empresas">Para empresas</a></li>
+    <ul class="menu" id="menu">
+      <li class="has-sub">
+        <a href="#empresas" aria-haspopup="true">Para empresas</a>
+        <ul class="submenu">
+          <li><a href="#empresas">Cómo trabajamos con empresas</a></li>
+          <li><a href="/headhunter-energias-renovables/">Headhunter energías renovables</a></li>
+          <li><a href="/headhunter-sector-energetico/">Headhunter sector energético</a></li>
+          <li><a href="/headhunter-industria/">Headhunter industria</a></li>
+          <li><a href="/headhunter-ingenieria/">Headhunter ingeniería</a></li>
+        </ul>
+      </li>
       <li><a href="#trayectoria">Trayectoria</a></li>
       <li><a href="#prensa">Prensa</a></li>
       <li><a href="#eventos">Eventos</a></li>
       <li><a href="#robert-walters">Robert Walters</a></li>
       <li><a class="btn btn-dark" href="#contacto">Contactar</a></li>
     </ul>
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -546,6 +556,16 @@
   document.getElementById("y").textContent = new Date().getFullYear();
   const nav = document.getElementById("nav");
   addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
+  const toggle = nav.querySelector(".menu-toggle");
+  toggle.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open);
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  });
+  nav.querySelectorAll(".menu a").forEach(a => a.addEventListener("click", () => {
+    nav.classList.remove("open");
+    toggle.setAttribute("aria-expanded", false);
+  }));
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .12 });
