@@ -15,6 +15,7 @@
 <link rel="canonical" href="https://lauragalera.es/">
 <meta name="theme-color" content="#0b1a2b">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b1a2b'/><text x='32' y='42' font-family='Georgia,serif' font-size='27' fill='%23c9a45c' text-anchor='middle'>LG</text></svg>">
+<link rel="preload" as="image" href="foto.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -373,9 +374,9 @@
     </div>
 
     <!-- FOTO: guarda la foto de Laura en esta carpeta con el nombre foto.jpg y aparecerá aquí automáticamente -->
-    <figure class="portrait reveal" id="portrait">
+    <figure class="portrait" id="portrait">
       <div class="frame">
-        <img src="foto.jpg" alt="Laura Galera San Miguel" onerror="this.closest('.portrait').classList.add('no-photo')">
+        <img src="foto.jpg" alt="Laura Galera San Miguel" width="800" height="1000" fetchpriority="high" onerror="this.closest('.portrait').classList.add('no-photo')">
         <div class="mono">LG</div>
       </div>
       <div class="badge"><b>13+ años</b><span>seleccionando directivos en Energía e Industria</span></div>
@@ -585,7 +586,7 @@
     </div>
     <div class="event">
       <figure class="event-photo reveal" id="event-photo">
-        <img src="eventos/pioneras-ponentes.jpg" alt="Ponentes de Pioneras del Progreso junto a Laura Galera" onerror="this.closest('.event-photo').classList.add('no-photo')">
+        <img src="eventos/pioneras-ponentes.jpg" loading="lazy" alt="Ponentes de Pioneras del Progreso junto a Laura Galera" onerror="this.closest('.event-photo').classList.add('no-photo')">
         <div class="event-mark"><span>Pioneras</span><em>del Progreso</em><small>Robert Walters · Madrid</small></div>
       </figure>
       <div class="event-body reveal">
