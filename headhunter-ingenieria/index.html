@@ -338,6 +338,16 @@
 </footer>
 
 <script>
+  /* Mostrar siempre el contenido: primero las animaciones, y si algo falla, todo visible */
+  try {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  } catch (e) { document.querySelectorAll(".reveal").forEach(el => el.classList.add("in")); }
+  window.addEventListener("error", () => document.querySelectorAll(".reveal").forEach(el => el.classList.add("in")));
+</script>
+<script>
   document.getElementById("y").textContent = new Date().getFullYear();
   const nav = document.getElementById("nav");
   addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
@@ -358,10 +368,6 @@
     document.addEventListener("click", () => { lang.classList.remove("open"); lb.setAttribute("aria-expanded", false); });
     document.addEventListener("keydown", e => { if (e.key === "Escape") { lang.classList.remove("open"); lb.setAttribute("aria-expanded", false); } });
   }
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: .12 });
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 </script>
 <script>/*copy-mail*/
   document.querySelectorAll(".copy-mail").forEach(b => b.addEventListener("click", async () => {
