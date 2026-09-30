@@ -58,7 +58,7 @@
   nav.open .menu-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
   nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
   nav.open .menu-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-  @media (max-width: 1200px) {
+  @media (max-width: 1100px) {
     .menu-toggle { display: inline-flex; }
     nav ul.menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 16px 24px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 18px 40px rgba(11, 26, 43, .12); max-height: calc(100vh - 76px); overflow-y: auto; }
     nav.open ul.menu { display: flex; }
@@ -397,14 +397,31 @@
   .footer-sectors { width: 100%; display: flex; flex-wrap: wrap; gap: 8px 24px; padding-bottom: 16px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
   .footer-sectors b { color: rgba(255,255,255,.85); font-weight: 600; }
 
-  /* ===== Idiomas ===== */
-  nav .lang { display: flex; gap: 10px; align-items: center; }
-  nav .lang a { font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--muted); padding-bottom: 2px; border-bottom: 1.5px solid transparent; }
-  nav .lang a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--brass); }
-  @media (max-width: 1200px) {
-    nav ul.menu > li.lang { display: flex; gap: 22px; padding: 18px 0 2px; }
-    nav ul.menu > li.lang > a:not(.btn) { display: inline-block; padding: 0 0 2px; border-bottom: 1.5px solid transparent; font-size: 14px; }
-    nav ul.menu > li.lang > a[aria-current="page"] { border-bottom-color: var(--brass); }
+  /* ===== Idiomas: desplegable en ordenador, lista en el menú móvil ===== */
+  nav .lang { position: relative; }
+  nav .lang-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; background: transparent; border: 1px solid var(--line); cursor: pointer;
+    font: 600 12px/1 var(--sans); letter-spacing: .1em; color: var(--ink); transition: border-color .2s; }
+  nav .lang-btn svg { color: var(--brass); }
+  nav .lang-btn::after { content: ""; width: 5px; height: 5px; margin-left: 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+  nav .lang-btn:hover, nav .lang.open .lang-btn { border-color: var(--brass-lt); }
+  nav ul.lang-menu { position: absolute; right: 0; top: 100%; display: block; min-width: 180px; margin-top: 12px; padding: 8px 0; background: var(--white);
+    border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(11, 26, 43, .12); opacity: 0; visibility: hidden; transform: translateY(6px);
+    transition: opacity .2s, transform .2s, visibility .2s; z-index: 40; }
+  nav ul.lang-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
+  nav .lang:hover ul.lang-menu, nav .lang:focus-within ul.lang-menu, nav .lang.open ul.lang-menu { opacity: 1; visibility: visible; transform: none; }
+  nav ul.lang-menu li { display: block; }
+  nav ul.lang-menu a { display: block; padding: 9px 20px; font-size: 14px; color: var(--text); }
+  nav ul.lang-menu a:hover { background: var(--paper); color: var(--ink); }
+  nav ul.lang-menu a[aria-current="page"] { color: var(--brass); font-weight: 600; }
+  @media (max-width: 1100px) {
+    nav ul.menu > li.lang { display: block; padding: 14px 0 2px; }
+    nav .lang-btn { display: none; }
+    nav ul.lang-menu { position: static; display: flex; flex-wrap: wrap; gap: 10px 20px; min-width: 0; margin: 0; padding: 0; background: transparent;
+      border: 0; box-shadow: none; opacity: 1; visibility: visible; transform: none; }
+    nav ul.lang-menu::before { display: none; }
+    nav ul.lang-menu a { padding: 0 0 2px; font-size: 15px; border-bottom: 1.5px solid transparent; }
+    nav ul.lang-menu a:hover { background: transparent; }
+    nav ul.lang-menu a[aria-current="page"] { border-bottom-color: var(--brass); }
   }
 
   /* ===== Botones en tarjetas y pie ===== */
@@ -426,7 +443,9 @@
   .legal-page a { color: var(--ink); }
 
   /* ===== Palabras largas (alemán, etc.) ===== */
-  h1, h2, h3, h4, .sub, .badge b, .stat .d, .positions li { overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+  h1, h2, h3, h4, .sub, .badge b, .stat .d, .positions li { overflow-wrap: break-word; }
+  @media (max-width: 600px) { h1, h2, h3, h4, .sub, .badge b, .stat .d, .positions li { hyphens: auto; -webkit-hyphens: auto; } }
   .two > *, .biz > *, .rw-grid > *, .about > *, .career > *, .faq-wrap > *, .event > *, .hero-grid > * { min-width: 0; }
   .contact-grid > *, .cta-band .wrap > * { min-width: 0; }
   .mail a, a.mail, .legal-page a[href^="mailto"] { overflow-wrap: anywhere; }
+  @media (min-width: 1101px) and (max-width: 1200px) { nav ul.menu { gap: 22px; } }

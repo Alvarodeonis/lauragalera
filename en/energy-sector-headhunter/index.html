@@ -130,7 +130,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/estilos.css?v=7">
+<link rel="stylesheet" href="/estilos.css?v=11">
 </head>
 <body>
 
@@ -152,7 +152,7 @@
       <li><a href="/en/#prensa">Press</a></li>
       <li><a href="/en/#eventos">Events</a></li>
       <li><a href="/en/#robert-walters">Robert Walters</a></li>
-      <li class="lang"><a href="/headhunter-sector-energetico/" hreflang="es" lang="es">ES</a><a href="/en/energy-sector-headhunter/" hreflang="en" lang="en" aria-current="page">EN</a><a href="/pt/headhunter-setor-energetico/" hreflang="pt" lang="pt">PT</a><a href="/fr/chasseur-de-tetes-secteur-energetique/" hreflang="fr" lang="fr">FR</a><a href="/de/headhunter-energiesektor/" hreflang="de" lang="de">DE</a><a href="/it/headhunter-settore-energetico/" hreflang="it" lang="it">IT</a></li>
+      <li class="lang"><button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Change language"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.8 3.8 5.8 3.8 9s-1.3 6.2-3.8 9c-2.5-2.8-3.8-5.8-3.8-9S9.5 5.8 12 3z"/></svg><span>EN</span></button><ul class="lang-menu"><li><a href="/headhunter-sector-energetico/" hreflang="es" lang="es">Español</a></li><li><a href="/en/energy-sector-headhunter/" hreflang="en" lang="en" aria-current="page">English</a></li><li><a href="/pt/headhunter-setor-energetico/" hreflang="pt" lang="pt">Português</a></li><li><a href="/fr/chasseur-de-tetes-secteur-energetique/" hreflang="fr" lang="fr">Français</a></li><li><a href="/de/headhunter-energiesektor/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/it/headhunter-settore-energetico/" hreflang="it" lang="it">Italiano</a></li></ul><!--/lang--></li>
       <li><a class="btn btn-dark" href="#contacto">Contact</a></li>
     </ul>
     <button class="menu-toggle" type="button" aria-label="Open menu" data-open="Open menu" data-close="Close menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
@@ -360,6 +360,13 @@
     nav.classList.remove("open");
     toggle.setAttribute("aria-expanded", false);
   }));
+  const lang = nav.querySelector(".lang");
+  if (lang) {
+    const lb = lang.querySelector(".lang-btn");
+    lb.addEventListener("click", e => { e.stopPropagation(); const o = lang.classList.toggle("open"); lb.setAttribute("aria-expanded", o); });
+    document.addEventListener("click", () => { lang.classList.remove("open"); lb.setAttribute("aria-expanded", false); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") { lang.classList.remove("open"); lb.setAttribute("aria-expanded", false); } });
+  }
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .12 });
