@@ -130,7 +130,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/estilos.css?v=11">
+<link rel="stylesheet" href="/estilos.css?v=12">
 </head>
 <body>
 
@@ -304,9 +304,10 @@
     <div class="reveal">
       <span class="label">Kontakt</span>
       <h2>Sie suchen eine Führungskraft <em>für Ihr Unternehmen</em>?</h2>
-      <p>Sie stellen in Spanien ein? Laura arbeitet in Madrid, im Zentrum des spanischen Marktes. Schreiben Sie ihr, welche Position Sie besetzen möchten, um ein erstes Treffen zu vereinbaren: <a class="mail" href="mailto:Laura.Galera@robertwalters.com">Laura.Galera@robertwalters.com</a></p>
+      <p>Sie stellen in Spanien ein? Laura arbeitet in Madrid, im Zentrum des spanischen Marktes. Schreiben Sie ihr, welche Position Sie besetzen möchten, um ein erstes Treffen zu vereinbaren: <a class="mail" href="mailto:Laura.Galera@robertwalters.com">Laura.Galera@robertwalters.com</a><button class="copy-mail" type="button" data-mail="Laura.Galera@robertwalters.com" data-copied="Kopiert!" aria-label="E-Mail-Adresse kopieren"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span>Kopieren</span></button></p>
     </div>
     <div class="card-actions reveal"><a class="btn btn-gold" href="mailto:Laura.Galera@robertwalters.com">Laura schreiben <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a><a class="btn btn-ghost" href="/laura-galera-san-miguel.vcf" download>Kontakt speichern</a></div>
+        <p class="mail-alt">Ihr E-Mail-Programm öffnet sich nicht? Schreiben Sie über <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=Laura.Galera@robertwalters.com" target="_blank" rel="noopener">Gmail</a> · <a href="https://outlook.office.com/mail/deeplink/compose?to=Laura.Galera@robertwalters.com" target="_blank" rel="noopener">Outlook</a></p>
   </div>
 </section>
 
@@ -371,6 +372,15 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+<script>/*copy-mail*/
+  document.querySelectorAll(".copy-mail").forEach(b => b.addEventListener("click", async () => {
+    const t = b.dataset.mail, label = b.querySelector("span"), orig = label.textContent;
+    try { await navigator.clipboard.writeText(t); }
+    catch (e) { const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove(); }
+    label.textContent = b.dataset.copied; b.classList.add("done");
+    setTimeout(() => { label.textContent = orig; b.classList.remove("done"); }, 2000);
+  }));
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e80fddbc8631493e965f052eea11e10d"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
